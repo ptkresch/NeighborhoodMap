@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Preston Kresch">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Neighborhood Map - Udacity Project">
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+	<title>Neighborhood Map</title>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery-jsonp.js"></script>
+	<script async type="text/javascript" src="knockout-3.4.0.js"></script>
+	<script async type="text/javascript" src="oauth-signature-min.js"></script>
+	<script type="text/javascript" src="map.js"></script>
+	<script type="text/javascript">
+		function mapError() {
+			initMap();
+		}
+	</script>
+	<script type="text/javascript" async defer src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCSvlguX2axX4hGDPmlp2c99BeAX4sjtwE&libraries=places&callback=initMap" onerror= "mapError()"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:400,600,500,700,800' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300italic,400italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+	
+
+</head>
+<body>
+	<div id="container" class="display-nav">
+		<div id="canvas">
+		<div id="mapdiv">
+			<div id="map"></div>
+		</div>
+		<div id="navdiv">
+			<div id="nav">
+				<h2 id="title"><i class="fa fa-sitemap"></i> MENU</h2>
+				<ul id="toggle">
+					<li>
+						<div class="active border">
+							<span class="menu-icons fa fa-home"></span>
+							<a href="#">HOME</a>
+						</div>
+					</li>
+					<li id="searchdiv">
+						<div>
+							<span id="searchflex" class="menu-icons fa fa-search"></span>
+							<a href="#">SEARCH:</a>
+						</div>
+							<input placeholder="Search..." type="search" id = "searchbar" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+					</li>
+					<li>
+						<div id="listcontainer">
+							<span class="menu-icons fa fa-list-ul"></span>
+							<a href="#">RESTAURANTS</a>
+							<span class="the-btn fa fa-plus"></span>
+						</div>
+						<ul data-bind="foreach: businesses" id="businessList">
+							<li data-bind="attr: {id: idnum}">
+							<a data-bind="attr{href: #}, html: name, click: $parent.currentSelectionLogic"></a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</div>
+		<div id="namedisplay">
+			<a href="#" class="toggle-nav" id="bars"><i class="fa fa-bars"></i></a>
+			<div id = "placeholder">
+				<h1 id = "footer" data-bind="text: placeholder"></h1>
+			</div>
+		</div>
+	<div id="loader"></div>
+	</div>
+</body>
+</html>

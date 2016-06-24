@@ -1,0 +1,440 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 5px rgba(255,255,255,.6);
+}
+
+html, body {
+	background: #f3efe0;
+    margin:0;
+    padding:0;
+    height:100%;
+    width:100%;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+h1 {
+	font-family: 'Raleway', Arial, sans-serif;
+	font-weight: 700;
+	font-size: 45px;
+	margin-top: 10px;
+	color: #38935f;
+}
+
+h3 {
+	font-family: 'Raleway', Arial, sans-serif;
+	font-weight: 400;
+	font-size: 25px;
+	margin-top: 15px;
+	color: #918e84;
+}
+
+h4 {
+	font-family: 'Raleway', Arial, sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+	margin-top: 15px;
+	color: #918e84;
+}
+
+
+#container {
+	width: 100vw;
+	height: 100vh;
+}
+
+#canvas {
+	width: 100%;
+	height: 90%;
+	display: block;
+}
+
+#mapdiv {
+	height: 100%;
+	width: 100%;
+	float: right;
+	z-index: 1;
+}
+
+#map {
+	height: 100%;
+}
+
+#content {
+	text-align: center;
+	word-wrap: break-word;
+}
+
+#navdiv {
+	width: 30%;
+	height: 90%;
+	position: absolute;
+}
+
+#nav {
+	width: 100%;
+	height: 100%;
+	background: #30804f;
+}
+
+#container.display-nav #mapdiv {
+	width: 70%;
+}
+
+#container.remove-nav #mapdiv {
+	width: 100%;
+}
+
+#container.display-nav #navdiv {
+	-webkit-transition:.5s ease all;
+	-moz-transition:.5s ease all;
+	-o-transition:.5s ease all;
+	transition:.5s ease all;
+	width: 30%;
+	-webkit-transform:rotateY(0deg);
+	-moz-transform:rotateY(0deg);
+	-ms-transform:rotateY(0deg);
+	-o-transform:rotateY(0deg);
+	transform: rotateY(0deg);
+}
+
+#container.remove-nav #navdiv {
+	-webkit-transition:.5s ease all;
+	-moz-transition:.5s ease all;
+	-o-transition:.5s ease all;
+	transition:.5s ease all;
+	-webkit-transform:rotateY(90deg);
+	-moz-transform:rotateY(90deg);
+	-ms-transform:rotateY(90deg);
+	-o-transform:rotateY(90deg);
+	transform: rotateY(90deg);
+	transform-origin: left;
+}
+
+#namedisplay {
+	position: absolute;
+	top: 90vh;
+	height: 10vh;
+	max-height: 10vh;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+#placeholder {
+	position: relative;
+	text-align: center;
+	margin: auto;
+}
+
+#bars {
+	font-size: 4vw;
+	margin: auto 0 auto 5vw;
+	margin-left: 20px;
+	color: #38935f;
+}
+
+#bars:hover {
+	color: #48b978;
+}
+
+#footer {
+	font-size: 3.5vw;
+	margin-top: auto;
+}
+
+#title {
+	margin: 0;
+	padding: 20px;
+	color: rgba(0,0,0,0.4);
+	text-shadow: 0 0 1px rgba(0,0,0,0.1);
+	font-weight: 300;
+	font-size: 2em;
+	font-family: 'Raleway', Arial;
+}
+
+.border {
+	border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+#toggle {
+	list-style: none;
+}
+
+#toggle div:hover {
+	-webkit-box-shadow: inset 0 -1px rgba(0,0,0,0);
+	-moz-box-shadow: inset 0 -1px rgba(0,0,0,0);
+	box-shadow: inset 0 -1px rgba(0,0,0,0);
+	color: #fff;
+}
+
+#toggle div.active {
+	background: #1f9d55;
+}
+
+#toggle div {
+	cursor: pointer;
+	display: block;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+#searchdiv {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#searchflex {
+	flex: 1 1 80px;
+}
+
+span.menu-icons {
+	font-size: 20px;
+	height: 20px;
+	width: 22px;
+	float: left;
+	margin: 11px 0px 10px 37px;
+	color: #fff;
+}
+
+span.the-btn {
+	float: right;
+	font-size: 20px;
+	height: 30px;
+	width: 43px;
+	margin-top: 10px;
+	margin-right: 8px;
+	padding: 0;
+	color: #fff;
+}
+
+#toggle ul {
+	list-style: none;
+	display: none;
+	color: #fff;
+	-webkit-box-shadow: inset 0 -1px rgba(0,0,0,0);
+	-moz-box-shadow: inset 0 -1px rgba(0,0,0,0);
+	box-shadow: inset 0 -1px rgba(0,0,0,0);
+}
+
+#toggle li a {
+	line-height: 41px;
+	color: #fff;
+	width: 240px;
+	padding: 0;
+	margin: 0 0 0 15px;
+}
+
+#toggle a {
+	margin: 0 0 0 47px;
+	padding: 0;
+	font-family: 'Lato';
+	color: #fff;
+	line-height: 41px;
+	font-weight: normal;
+	font-size: 18px;
+	text-decoration: none;
+}
+
+#toggle ul li.active {
+	background-color: rgba(0,0,0,0.2);
+}
+
+#toggle ul li {
+	padding-left: 40px;
+	cursor: pointer;
+}
+
+#toggle ul li:hover {
+	background-color: rgba(0,0,0,0.2);
+}
+
+#toggle ul li a {
+	margin-left: 0;
+}
+
+#toggle li ul {
+	max-height: 30vh;
+	overflow-y: scroll;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#loader {
+	position: absolute;
+	margin: auto;
+	top:0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	border: 1.25vh solid black;
+	border-top: 0.7812vh solid #3498db;
+	border-radius: 50%;
+	width: 9.375vh;
+	height: 9.375vh;
+	animation: spin 2s linear infinite;
+}
+
+#searchbar {
+	margin: auto 15px auto 15px;
+	background-color: black;
+	color: white;
+	width: 80px;
+	flex: 1 1 40px;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+
+@media screen and (max-width: 875px) and (min-height: 500px) {
+
+	#canvas {
+		width: 100vw;
+		height:90%;
+	}
+	#mapdiv {
+		width: 100%;
+	}
+
+	#container.display-nav #mapdiv {
+		width: 100%;
+	}
+
+	#navdiv {
+		width: 100%;
+		background: #38935f;
+	}
+
+	#container.display-nav #navdiv {
+		width: 100%;
+		height: 175px;
+		max-height: 60%;
+
+		-webkit-transform:translateY(0);
+		-moz-transform:translateY(0);
+		-ms-transform:translateY(0);
+		-o-transform:translateY(0);
+		transform:translateY(0);
+	}
+
+	#title {
+		font-size: 1.5em;
+		padding: 10px;
+	}
+
+	#bars {
+		margin: auto 0 auto 2vw;
+	}
+
+	#toggle li {
+		background-color: #1f9d55;
+	}
+
+	#toggle li {
+		background-color: #1f9d55;
+	}
+
+	#toggle ul li {
+		margin: auto;
+		padding: 2px;
+		font-size: 0.8em;
+	}
+
+	#toggle ul li a {
+		margin: auto;
+	}
+
+	#toggle li ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		background-color: #1f9d55;
+		max-height: 20vh;
+	}
+
+	#toggle li a {
+		font-size: 1em;
+	}
+
+	#footer {
+		font-size: 4.5vw;
+	}
+}
+
+@media screen and (max-width: 875px) and (min-height: 320px) and (max-height: 499px) {
+
+	#footer {
+		font-size: 4vw;
+	}
+
+	#container.display-nav #navdiv {
+		width: 40%;
+	}
+
+	#container.display-nav #mapdiv {
+		width: 60%;
+	}
+
+	#title {
+		font-size: 1em;
+		padding: 10px;
+	}
+
+	span.menuicons {
+		margin: 11px 0px 5px 20px;
+	}
+
+	#toggle a {
+		font-size: 10px;
+	}
+
+	#toggle li ul {
+		max-height: 22vh;
+	}
+
+	span.the-btn {
+		width: 30px;
+	}
+
+	#searchbar {
+		width: 14vw;
+	}
+
+	#toggle ul li {
+		width: 100%;
+	}
+
+}
+
+@media screen and (min-width: 876px) {
+	#toggle ul li {
+		width: 100%;
+	}
+}
+
+#searchflex a {
+	font-family: 'Lato';
+	color: #fff;
+	line-height: 41px;
+	font-weight: normal;
+	font-size: 18px;
+	text-decoration: none;
+}
