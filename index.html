@@ -9,7 +9,7 @@
     <title>Neighborhood Map</title>
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery-jsonp.js"></script>
-    <script async type="text/javascript" src="knockout-3.4.0.js"></script>
+    <script type="text/javascript" src="knockout-3.4.0.js"></script>
     <script async type="text/javascript" src="oauth-signature-min.js"></script>
     <script type="text/javascript" src="map.js"></script>
     <script type="text/javascript">
@@ -17,7 +17,7 @@
             initMap();
         }
     </script>
-    <script type="text/javascript" async defer src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCSvlguX2axX4hGDPmlp2c99BeAX4sjtwE&libraries=places&callback=initMap" onerror="mapError()"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSvlguX2axX4hGDPmlp2c99BeAX4sjtwE&libraries=places&callback=initMap" onerror="mapError()" async></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,600,500,700,800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300italic,400italic' rel='stylesheet' type='text/css'>
@@ -28,12 +28,13 @@
 </head>
 
 <body>
-    <div id="container" class="display-nav">
+    <div id="container" data-bind="css: navdisplay">
         <div id="canvas">
             <div id="mapdiv">
+                <div id="errordiv" data-bind="html: errorHTML, visible: errorVisible"></div>
                 <div id="map"></div>
             </div>
-            <div id="navdiv">
+            <div id="navdiv" data-bind="css: load">
                 <div id="nav">
                     <h2 id="title"><i class="fa fa-sitemap"></i> MENU</h2>
                     <ul id="toggle">
@@ -48,17 +49,17 @@
                                 <span id="searchflex" class="menu-icons fa fa-search"></span>
                                 <a href="#">SEARCH:</a>
                             </div>
-                            <input placeholder="Search..." type="search" id="searchbar" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+                            <input placeholder="Search..." type="search" id="searchbar" data-bind="textInput: query" autocomplete="off">
                         </li>
                         <li>
-                            <div id="listcontainer">
+                            <div id="listcontainer" data-bind="css: containerClass, click: toggleList">
                                 <span class="menu-icons fa fa-list-ul"></span>
                                 <a href="#">RESTAURANTS</a>
-                                <span class="the-btn fa fa-plus"></span>
+                                <span class="the-btn fa" data-bind="css: slideClass"></span>
                             </div>
                             <ul data-bind="foreach: businesses" id="businessList">
-                                <li data-bind="attr: {id: idnum}">
-                                    <a data-bind="attr{href: #}, html: name, click: $parent.currentSelectionLogic"></a>
+                                <li data-bind="attr: {id: idnum}, click: $parent.currentSelectionLogic, css: listClass">
+                                    <a data-bind="attr{href: #}, html: name"></a>
                                 </li>
                             </ul>
                         </li>
@@ -67,12 +68,12 @@
             </div>
         </div>
         <div id="namedisplay">
-            <a href="#" class="toggle-nav" id="bars"><i class="fa fa-bars"></i></a>
+            <a href="#" class="toggle-nav" id="bars" data-bind="click: toggleNavigation"><i class="fa fa-bars"></i></a>
             <div id="placeholder">
                 <h1 id="footer" data-bind="text: placeholder"></h1>
             </div>
         </div>
-        <div id="loader"></div>
+        <div id="loader" data-bind="visible: loaderVisible"></div>
     </div>
 </body>
 

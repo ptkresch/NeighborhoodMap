@@ -17,6 +17,7 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 h1,
 h2,
@@ -44,6 +45,9 @@ h4 {
     margin-top: 15px;
     color: #918e84;
 }
+li {
+    cursor: pointer;
+}
 #container {
     width: 100vw;
     height: 100vh;
@@ -59,6 +63,10 @@ h4 {
     float: right;
     z-index: 1;
 }
+#errordiv {
+    position: absolute;
+    top: 50%;
+}
 #map {
     height: 100%;
 }
@@ -70,6 +78,9 @@ h4 {
     width: 30%;
     height: 90%;
     position: absolute;
+}
+#navdiv.load {
+    height: 90%;
 }
 #nav {
     width: 100%;
@@ -160,7 +171,7 @@ h4 {
 #toggle div {
     cursor: pointer;
     display: block;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid #26673f;
 }
 #searchdiv {
     display: flex;
@@ -213,14 +224,15 @@ span.the-btn {
     text-decoration: none;
 }
 #toggle ul li.active {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 #toggle ul li {
     padding-left: 40px;
     cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 #toggle ul li:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 #toggle ul li a {
     margin-left: 0;
@@ -230,6 +242,9 @@ span.the-btn {
     overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
+    border-style: groove;
+    border-color: gray;
+    border-width: 5px;
 }
 #loader {
     position: absolute;
@@ -283,6 +298,12 @@ span.the-btn {
         width: 100%;
         background: #38935f;
     }
+    #navdiv {
+        height: 35%;
+    }
+    #navdiv.load {
+        height: 90%;
+    }
     #container.display-nav #navdiv {
         width: 100%;
         height: 175px;
@@ -300,16 +321,11 @@ span.the-btn {
     #bars {
         margin: auto 0 auto 2vw;
     }
-    #toggle li {
-        background-color: #1f9d55;
-    }
-    #toggle li {
-        background-color: #1f9d55;
-    }
     #toggle ul li {
         margin: auto;
         padding: 2px;
         font-size: 0.8em;
+        background-color: #30804f;
     }
     #toggle ul li a {
         margin: auto;
@@ -318,7 +334,7 @@ span.the-btn {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        background-color: #1f9d55;
+        background-color: #30804f;
         max-height: 20vh;
     }
     #toggle li a {
@@ -359,6 +375,9 @@ span.the-btn {
     }
     #toggle ul li {
         width: 100%;
+    }
+    #navdiv.load {
+        height: 90%;
     }
 }
 @media screen and (min-width: 876px) {
