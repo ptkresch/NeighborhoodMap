@@ -17,7 +17,7 @@
             initMap();
         }
     </script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSvlguX2axX4hGDPmlp2c99BeAX4sjtwE&libraries=places&callback=initMap" onerror= "mapError()"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSvlguX2axX4hGDPmlp2c99BeAX4sjtwE&libraries=places&callback=initMap" onerror="mapError()"></script>
     <link rel="stylesheet" href="style.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,600,500,700,800' rel='stylesheet'>
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300italic,400italic' rel='stylesheet'>
@@ -58,8 +58,8 @@
                                 <span class="the-btn fa" data-bind="css: slideClass"></span>
                             </div>
                             <ul data-bind="foreach: businesses" id="businessList">
-                                <li data-bind="attr: {id: idnum}, click: $parent.currentSelectionLogic, css: listClass">
-                                    <a data-bind="attr{href: #}, html: name"></a>
+                                <li data-bind="attr: {id: idnum}, click: $parent.listSelection, css: listClass">
+                                    <a data-bind="attr{href: #}, text: name"></a>
                                 </li>
                             </ul>
                         </li>

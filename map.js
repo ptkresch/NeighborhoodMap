@@ -1,7 +1,3 @@
-//To do: filter, asynchronous, jshint, css clean, html clean
-//suggestion - make self.businesses the computed observable for search
-//suggestion - use classes and assign markers as an element of the class
-
 var map, google, service, bound, infowindow, ViewModel, loadingDone, self;
 var markers = [];
 var placeId = [];
@@ -11,7 +7,6 @@ var index = 0;
 var ErrorCounter = 0;
 var Model = {
     businesses: [],
-    businesslist: [],
     details: [],
     imagesrcs: [],
     reviews: [],
@@ -35,7 +30,7 @@ function initMap() {
             $('script[src="' + src + '"]').remove();
             document.getElementsByTagName('head')[0].appendChild(reloadMap);
             $('link').each(function() {
-                if ($(this).attr("type").indexOf("css") > -1) {
+                if ($(this).attr("href").indexOf("font") > -1) {
                     $(this).attr("href", $(this).attr("href") + "?id=" + new Date().getMilliseconds());
                 }
             });
@@ -91,7 +86,6 @@ function mapcallback(results, status) {
         for (var i = 0; i < results.length; i++) {
             Model.businesses[i] = results[i];
             Model.businesses[i].currentMarker = ko.observable(false);
-            Model.businesslist[i] = results[i];
             Model.businesses[i].idnum = i;
             Model.businesses[i].listClass = ko.observable('none');
             placeId[i] = Model.businesses[i].place_id;
@@ -109,6 +103,7 @@ function mapcallback(results, status) {
         //which some Places requests are successful, but not all. Yelp data should still lookup through Google maps.
         // setTimeout(function(){GooglePlacesRequest(index);}, 2000);
         console.log('Google Places is loading.');
+        self.placeholder('Loading...');
         GooglePlacesRequest(index);
     }
 }
@@ -125,6 +120,10 @@ function createMarker(business, i) {
     });
     markers.push(marker);
     bound.extend(marker.getPosition());
+    google.maps.event.addListener(marker, 'click', function() {
+        self.currentObject(Model.businesses[marker.id]);
+    });
+
 }
 
 GooglePlacesRequest = function(index, ErrorCounter) {
@@ -242,31 +241,38 @@ GooglePlacesGetPhotoUrls = function() {
 function ViewModel() {
     self = this;
     //Observables
-    this.businesses = ko.observableArray(Model.businesses);
-    this.details = [];
-    this.errorHTML = ko.observable();
+    this.errorHTML = ko.observable('');
     this.errorVisible = ko.observable(false);
     this.loaderVisible = ko.observable(true);
-    this.currentObject = ko.observable();
-    this.placeholder = ko.observable('Loading...');
+    this.currentObject = ko.observable('');
+    this.placeholder = ko.observable('');
 
     //Search Bar
     this.query = ko.observable('');
-    this.search = ko.computed(function() {
+    this.businesses = ko.computed(function() {
+        var query = self.query().toLowerCase();
         self.currentObject('');
-        self.businesses.removeAll();
-        markers.forEach(function(marker) {
-            marker.setMap(null);
-        });
-
-        for (var x in Model.businesslist) {
-            if (Model.businesslist[x].name.toLowerCase().indexOf(self.query().toLowerCase()) >= 0) {
-                self.businesses.push(Model.businesslist[x]);
-                markers[x].setMap(map);
-            }
-        }
         if (infowindow !== undefined) {
+            //Close infowindow when filter is used.
             infowindow.close();
+        }
+        if (!query) {
+            //If there is no query, return everything and make all markers visible.
+            markers.forEach(function(marker) {
+                marker.setMap(map);
+            });
+            return Model.businesses;
+        } else {
+            return ko.utils.arrayFilter(Model.businesses, function(business, i) {
+                //If an item returns true, it stays in the array. If false, it is removed.
+                if (business.name.toLowerCase().indexOf(query) >= 0) {
+                    markers[i].setMap(map);
+                    return true;
+                } else {
+                    markers[i].setMap(null);
+                    return false;
+                }
+            });
         }
     }, this);
 
@@ -329,22 +335,9 @@ function ViewModel() {
     //Current Selection Logic
 
     //Enable List Selection
-    this.currentSelectionLogic = function(data) {
-        Model.businesses.forEach(function(business) {
-            business.currentMarker(false);
-        });
-        data.currentMarker(true);
+    this.listSelection = function(data) {
         self.currentObject(data);
     };
-
-    //Enable Marker Selection
-    this.markerSelection = ko.computed(function() {
-        markers.forEach(function(marker) {
-            google.maps.event.addListener(marker, 'click', function() {
-                self.currentObject(Model.businesslist[marker.id]);
-            });
-        });
-    });
 
     this.currentSelection = ko.computed(function() {
         if (typeof(self.currentObject()) == 'object') {
