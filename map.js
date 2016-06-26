@@ -1,3 +1,7 @@
+//To do: filter, asynchronous, jshint, css clean, html clean
+//suggestion - make self.businesses the computed observable for search
+//suggestion - use classes and assign markers as an element of the class
+
 var map, google, service, bound, infowindow, ViewModel, loadingDone, self;
 var markers = [];
 var placeId = [];
